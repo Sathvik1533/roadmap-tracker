@@ -1,16 +1,50 @@
-# React + Vite
+# Full-Stack + GenAI Engineer Roadmap Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal 12-week learning roadmap tracker with Supabase persistence.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Track task completion week by week across a 12-week Full-Stack + GenAI curriculum
+- Score system based on completed days (learn points + build points)
+- Daily journal (learned / built / struggled / revise)
+- Project status tracker (not started → in progress → done)
+- All data persists in Supabase — survives page refreshes
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + Vite
+- Supabase (PostgreSQL + Row Level Security)
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repo
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Create a `.env` file from the example:
+   ```
+   cp .env.example .env
+   ```
+4. Fill in your Supabase credentials in `.env`:
+   ```
+   VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+   ```
+5. Run the schema in Supabase SQL Editor (`supabase/schema.sql`)
+6. Start the dev server:
+   ```
+   npm run dev
+   ```
+
+## Database Schema
+
+Three tables in Supabase:
+
+| Table | Purpose |
+|-------|---------|
+| `tasks_progress` | Task checkbox state keyed by `week-day-task` index |
+| `daily_logs` | Daily journal entries (learned, built, struggled, revise) |
+| `project_status` | Project status: `not_started`, `in_progress`, `done` |
+
+All tables use anonymous RLS policies (single-user app, no auth required).
